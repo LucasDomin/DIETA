@@ -3,267 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Agente Dieta - DOMI & NATH</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; color: #333; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
-        header { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 20px; text-align: center; }
-        h1 { font-size: 2em; margin-bottom: 10px; }
-        .tabs { display: flex; background: #f8f9fa; border-bottom: 2px solid #dee2e6; }
-        .tab { flex: 1; padding: 15px; text-align: center; cursor: pointer; transition: all 0.3s; font-weight: bold; }
-        .tab.active { background: white; color: #4facfe; border-bottom: 2px solid #4facfe; }
-        .tab.domi { color: #007bff; }
-        .tab.nath { color: #ff69b4; }
-        .content { padding: 20px; display: none; }
-        .content.active { display: block; }
-        .profile-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; text-align: center; }
-        .profile-header.domi { background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); }
-        .profile-header.nath { background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%); }
-        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }
-        .stat { background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; text-align: center; }
-        .stat-value { font-size: 2em; font-weight: bold; }
-        .water { background: linear-gradient(135deg, #00b894 0%, #00cec9 100%)!important; color: white; }
-        .progress { background: #e9ecef; height: 10px; border-radius: 10px; overflow: hidden; margin-top: 5px; }
-        .progress-bar { height: 100%; transition: width 0.3s; background: linear-gradient(90deg, #28a745, #ffc107); }
-        .meals { margin: 20px 0; }
-        .meal { background: #f8f9fa; border-radius: 15px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.2s; }
-        .meal:hover { transform: translateY(-2px); }
-        .meal-icon { font-size: 2em; margin-right: 15px; }
-        .meal-info { flex: 1; }
-        .meal-name { font-weight: bold; font-size: 1.2em; }
-        .meal-time { color: #666; }
-        .meal-weight { font-size: 0.9em; margin: 5px 0; }
-        .meal-desc { font-size: 0.85em; color: #888; }
-        .meal-actions { display: flex; gap: 10px; align-items: center; }
-        input[type="number"], input[type="time"], select { padding: 8px; border: 1px solid #ddd; border-radius: 5px; width: 80px; }
-        button { padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
-        .check-btn { background: #28a745; color: white; }
-        .check-btn.checked { background: #ffc107; }
-        .water-btn { background: #17a2b8; color: white; }
-        .history { margin-top: 30px; }
-        .history-item { background: #e9ecef; padding: 10px; border-radius: 10px; margin-bottom: 10px; font-size: 0.9em; }
-        .reminders { background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 10px; padding: 15px; margin: 20px 0; }
-        .reminder { margin-bottom: 10px; padding: 10px; background: rgba(255,193,7,0.2); border-radius: 5px; }
-        .report { background: #d4edda; border: 1px solid #c3e6cb; border-radius: 10px; padding: 20px; margin: 20px 0; }
-        @media (max-width: 768px) { .tabs { flex-direction: column; } .meal { flex-direction: column; text-align: center; gap: 10px; } }
-    </style>
+    <title>Super Agente Dieta 🚀</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='-5' y='90' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🚀 Super Agente Dieta</h1>
-            <p>DOMI & NATH - Déficit para Emagrecimento Máximo com Força!</p>
-        </header>
-
+    <header>
+        <h1>Super Agente Dieta 🚀</h1>
+        <p>Seu assistente pessoal para emagrecimento e saúde!</p>
         <div class="tabs">
-            <div class="tab domi active" onclick="switchTab('domi')">👨 DOMI</div>
-            <div class="tab nath" onclick="switchTab('nath')">👩 NATH</div>
+            <button class="tab-button active" onclick="switchTab('domi')">DOMI</button>
+            <button class="tab-button" onclick="switchTab('nath')">NATH</button>
         </div>
+    </header>
 
-        <!-- Conteúdo DOMI -->
-        <div id="domi" class="content active">
-            <div class="profile-header domi">
-                <h2>DOMI - 86kg → 79kg (Meta: 2.200kcal)</h2>
-                <p>Proteína: 150g | Treinos: Jiu + Academia</p>
-            </div>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-value" id="domi-cal">0 / 2200</div>
-                    <div>Calorias</div>
-                    <div class="progress"><div class="progress-bar" id="domi-cal-bar" style="width:0%"></div></div>
-                </div>
-                <div class="stat water">
-                    <div class="stat-value" id="domi-water">0 / 3.5L</div>
-                    <div>Água</div>
-                    <div class="progress"><div class="progress-bar" id="domi-water-bar" style="width:0%; background: #00b894;"></div></div>
-                </div>
-            </div>
+    <main id="app-content">
+        <!-- Conteúdo dinâmico será carregado aqui pelo JavaScript -->
+    </main>
 
-            <div class="meals" id="domi-meals"></div>
-            <div class="water-actions">
-                <button class="water-btn" onclick="addWater('domi', 250)">+250ml Água</button>
-                <button class="water-btn" onclick="addWater('domi', 500)">+500ml Água</button>
-            </div>
+    <footer>
+        <p>&copy; 2023 Super Agente Dieta. Todos os direitos reservados.</p>
+    </footer>
 
-            <div class="reminders" id="domi-reminders">
-                <h3>🔔 Lembretes Hoje:</h3>
-                <div class="reminder">Preparar marmitas para amanhã! 🍗🥔</div>
-            </div>
-
-            <div class="report">
-                <h3>📊 Melhorias Imediatas DOMI:</h3>
-                <ul>
-                    <li>Substitua energético por café + BCAA</li>
-                    <li>Maionese → Iogurte grego</li>
-                    <li>Doces: Paçoca fitness 1x/dia max</li>
-                    <li>Proteína pós-treino obrigatório</li>
-                </ul>
-            </div>
-
-            <div class="history">
-                <h3>📈 Histórico Semanal</h3>
-                <div id="domi-history"></div>
-            </div>
-        </div>
-
-        <!-- Conteúdo NATH -->
-        <div id="nath" class="content">
-            <div class="profile-header nath">
-                <h2>NATH - 56kg → 50kg (Meta: 1.550kcal)</h2>
-                <p>Proteína: 100g | Treinos: Jiu + Academia</p>
-            </div>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-value" id="nath-cal">0 / 1550</div>
-                    <div>Calorias</div>
-                    <div class="progress"><div class="progress-bar" id="nath-cal-bar" style="width:0%"></div></div>
-                </div>
-                <div class="stat water">
-                    <div class="stat-value" id="nath-water">0 / 2.5L</div>
-                    <div>Água</div>
-                    <div class="progress"><div class="progress-bar" id="nath-water-bar" style="width:0%; background: #00b894;"></div></div>
-                </div>
-            </div>
-
-            <div class="meals" id="nath-meals"></div>
-            <div class="water-actions">
-                <button class="water-btn" onclick="addWater('nath', 250)">+250ml Água</button>
-                <button class="water-btn" onclick="addWater('nath', 500)">+500ml Água</button>
-            </div>
-
-            <div class="reminders" id="nath-reminders">
-                <h3>🔔 Lembretes Hoje:</h3>
-                <div class="reminder">Doces programados: Amanhã ok! 🍫</div>
-            </div>
-
-            <div class="report">
-                <h3>📊 Melhorias Imediatas NATH:</h3>
-                <ul>
-                    <li>Macarrão → Abobrinha espiralizada</li>
-                    <li>Doces: 2x/semana max, versão fit</li>
-                    <li>Lanche escola: Iogurte + castanhas</li>
-                    <li>Fibra alta para saciedade</li>
-                </ul>
-            </div>
-
-            <div class="history">
-                <h3>📈 Histórico Semanal</h3>
-                <div id="nath-history"></div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Dados das refeições (exemplo para hoje, variam por dia)
-        const meals = {
-            domi: [
-                { icon: '☕', name: 'Café Pré-Treino', time: '06:30', cal: 400, weight: '200g', desc: '2 ovos + 1 fatia pão integral + café preto' },
-                { icon: '🥤', name: 'Pós-Treino', time: '11:00', cal: 300, weight: '1 scoop', desc: 'Whey + banana + 20g castanhas' },
-                { icon: '🍽️', name: 'Almoço Empresa', time: '12:30', cal: 600, weight: '400g', desc: 'Frango grelhado + arroz + salada (controlar porção)' },
-                { icon: '🥪', name: 'Lanche 16h', time: '16:00', cal: 250, weight: '50g', desc: '1 fatia pão + queijo light + café' },
-                { icon: '🍗', name: 'Jantar', time: '19:30', cal: 500, weight: '300g', desc: 'Carne magra + batata doce + vegetais' },
-                { icon: '🧀', name: 'Pós-Treino Noturno', time: '22:00', cal: 150, weight: '200g', desc: 'Iogurte grego + paçoca fit' }
-            ],
-            nath: [
-                { icon: '☕', name: 'Café Casa', time: '06:50', cal: 300, weight: '150g', desc: 'Ovo + aveia + morango' },
-                { icon: '🥛', name: 'Lanche Escola', time: '09:50', cal: 200, weight: '150g', desc: 'Iogurte grego + 15g castanhas' },
-                { icon: '🍽️', name: 'Almoço', time: '13:00', cal: 450, cal: 450, weight: '350g', desc: 'Peito frango + salada + batata doce pequena' },
-                { icon: '🍌', name: 'Pré-Treino', time: '17:00', cal: 200, weight: '1 un', desc: 'Banana + whey scoop' },
-                { icon: '🥗', name: 'Jantar Pós-Treino', time: '20:30', cal: 400, weight: '250g', desc: 'Ovos + vegetais refogados + quinoa' }
-            ]
-        };
-
-        let data = JSON.parse(localStorage.getItem('dietData')) || { domi: { cal: 0, water: 0, history: [] }, nath: { cal: 0, water: 0, history: [] } };
-        const targets = { domi: { cal: 2200, water: 3500 }, nath: { cal: 1550, water: 2500 } }; // ml para água
-
-        function switchTab(profile) {
-            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(profile).classList.add('active');
-            event.target.classList.add('active');
-            loadProfile(profile);
-        }
-
-        function loadProfile(profile) {
-            const mealsEl = document.getElementById(profile + '-meals');
-            mealsEl.innerHTML = '';
-            meals[profile].forEach((meal, i) => {
-                const checked = data[profile].checked ? data[profile].checked[i] : false;
-                const cal = checked ? meal.cal : 0;
-                data[profile].cal = (data[profile].cal || 0) + (checked ? 0 : cal); // Atualiza soma se checked
-                mealsEl.innerHTML += `
-                    <div class="meal">
-                        <div class="meal-icon">${meal.icon}</div>
-                        <div class="meal-info">
-                            <div class="meal-name">${meal.name}</div>
-                            <div class="meal-time">🕐 ${meal.time}</div>
-                            <div class="meal-weight">⚖️ ${meal.weight}</div>
-                            <div class="meal-desc">${meal.desc}</div>
-                        </div>
-                        <div class="meal-actions">
-                            <input type="number" id="${profile}-weight-${i}" placeholder="Peso g" value="${checked ? meal.weight : ''}">
-                            <button class="check-btn ${checked ? 'checked' : ''}" onclick="toggleMeal('${profile}', ${i}, ${meal.cal})">
-                                ${checked ? '✅' : '⭕'}
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-            updateStats(profile);
-            loadHistory(profile);
-        }
-
-        function toggleMeal(profile, index, cal) {
-            data[profile].checked = data[profile].checked || [];
-            data[profile].checked[index] = !data[profile].checked[index];
-            data[profile].cal += data[profile].checked[index] ? cal : -cal;
-            localStorage.setItem('dietData', JSON.stringify(data));
-            loadProfile(profile);
-        }
-
-        function addWater(profile, ml) {
-            data[profile].water += ml;
-            localStorage.setItem('dietData', JSON.stringify(data));
-            loadProfile(profile);
-            // Salva no histórico diário
-            const today = new Date().toDateString();
-            if (!data[profile].history.find(h => h.date === today)) {
-                data[profile].history.push({ date: today, cal: data[profile].cal, water: data[profile].water });
-            }
-        }
-
-        function updateStats(profile) {
-            const calEl = document.getElementById(profile + '-cal');
-            const calBar = document.getElementById(profile + '-cal-bar');
-            const waterEl = document.getElementById(profile + '-water');
-            const waterBar = document.getElementById(profile + '-water-bar');
-            const pctCal = Math.min((data[profile].cal / targets[profile].cal) * 100, 100);
-            const pctWater = Math.min((data[profile].water / targets[profile].water) * 100, 100);
-            calEl.textContent = `${Math.round(data[profile].cal)} / ${targets[profile].cal}`;
-            waterEl.textContent = `${(data[profile].water / 1000).toFixed(1)} / ${(targets[profile].water / 1000).toFixed(1)}L`;
-            calBar.style.width = pctCal + '%';
-            waterBar.style.width = pctWater + '%';
-        }
-
-        function loadHistory(profile) {
-            const histEl = document.getElementById(profile + '-history');
-            histEl.innerHTML = data[profile].history.slice(-7).map(h => 
-                `<div class="history-item">${h.date}: ${Math.round(h.cal)}kcal | ${(h.water/1000).toFixed(1)}L</div>`
-            ).join('') || '<div>Nenhum histórico ainda. Comece a marcar!</div>';
-        }
-
-        // Inicializa
-        loadProfile('domi');
-
-        // Reset diário automático (simples: botão manual por enquanto)
-        function resetDay(profile) {
-            data[profile].cal = 0;
-            data[profile].water = 0;
-            data[profile].checked = [];
-            localStorage.setItem('dietData', JSON.stringify(data));
-            loadProfile(profile);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
