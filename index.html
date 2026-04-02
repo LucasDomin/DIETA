@@ -4,27 +4,336 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Agente Dieta 🚀</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='-5' y='90' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding-bottom: 50px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        header { background: rgba(255,255,255,0.95); padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; }
+        h1 { color: #4CAF50; font-size: 2.2em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+        .tabs { display: flex; gap: 10px; margin-top: 15px; justify-content: center; }
+        .tab-btn { flex: 1; max-width: 150px; padding: 12px; border: none; background: #e0e0e0; color: #666; font-size: 1.1em; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .tab-btn.active { background: #4CAF50; color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(76,175,80,0.4); }
+        .tab-btn:hover:not(.active) { background: #d0d0d0; }
+        
+        .card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .card h2 { color: #333; border-bottom: 3px solid #4CAF50; padding-bottom: 10px; margin-bottom: 15px; font-size: 1.4em; }
+        
+        .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 10px; }
+        .stat-box { background: #f5f5f5; padding: 15px; border-radius: 10px; text-align: center; }
+        .stat-box strong { display: block; color: #4CAF50; font-size: 1.3em; margin-bottom: 5px; }
+        
+        .meal-item { background: #f9f9f9; border-left: 4px solid #4CAF50; padding: 15px; margin: 10px 0; border-radius: 8px; transition: transform 0.2s; }
+        .meal-item:hover { transform: translateX(5px); }
+        .meal-item.adjusted { background: #fff3e0; border-left-color: #ff9800; }
+        .meal-time { font-weight: bold; color: #666; font-size: 0.9em; }
+        .meal-desc { margin-top: 5px; color: #333; }
+        
+        .input-group { margin: 10px 0; }
+        input, textarea { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1em; transition: border 0.3s; }
+        input:focus, textarea:focus { border-color: #4CAF50; outline: none; }
+        textarea { resize: vertical; min-height: 80px; }
+        
+        button { background: #4CAF50; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: all 0.3s; margin: 5px 0; }
+        button:hover { background: #45a049; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(76,175,80,0.3); }
+        button.secondary { background: #2196F3; }
+        button.secondary:hover { background: #1976D2; }
+        button.danger { background: #f44336; }
+        button.danger:hover { background: #d32f2f; }
+        button.warning { background: #ff9800; }
+        button.warning:hover { background: #f57c00; }
+        
+        .water-container { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .water-display { font-size: 2em; font-weight: bold; color: #2196F3; }
+        .progress-bar { flex: 1; min-width: 200px; height: 30px; background: #e3f2fd; border-radius: 15px; overflow: hidden; position: relative; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #2196F3, #03a9f4); transition: width 0.5s ease; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+        
+        .history-item { padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .history-item:last-child { border-bottom: none; }
+        .badge { background: #4CAF50; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8em; }
+        .badge.orange { background: #ff9800; }
+        
+        .alert-box { background: #fff3e0; border-left: 5px solid #ff9800; padding: 15px; margin-bottom: 20px; border-radius: 8px; font-weight: bold; color: #e65100; }
+        .success-box { background: #e8f5e9; border-left: 5px solid #4CAF50; padding: 15px; margin: 10px 0; border-radius: 8px; }
+        .info-box { background: #e3f2fd; border-left: 5px solid #2196F3; padding: 10px; margin: 5px 0; border-radius: 5px; font-size: 0.95em; }
+        
+        .hidden { display: none; }
+        @media (max-width: 600px) { 
+            .container { padding: 10px; } 
+            h1 { font-size: 1.8em; }
+            .profile-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
+
+<div class="container">
     <header>
-        <h1>Super Agente Dieta 🚀</h1>
-        <p>Seu assistente pessoal para emagrecimento e saúde!</p>
+        <h1>🚀 Super Agente Dieta</h1>
+        <p>Assistente pessoal para emagrecimento e saúde</p>
         <div class="tabs">
-            <button class="tab-button active" onclick="switchTab('domi')">DOMI</button>
-            <button class="tab-button" onclick="switchTab('nath')">NATH</button>
+            <button class="tab-btn active" onclick="switchTab('domi')" id="tab-domi">DOMI</button>
+            <button class="tab-btn" onclick="switchTab('nath')" id="tab-nath">NATH</button>
         </div>
     </header>
 
-    <main id="app-content">
-        <!-- Conteúdo dinâmico será carregado aqui pelo JavaScript -->
-    </main>
+    <div id="app-content">
+        <div class="card">
+            <p style="text-align:center; color:#666;">Carregando...</p>
+        </div>
+    </div>
+</div>
 
-    <footer>
-        <p>&copy; 2023 Super Agente Dieta. Todos os direitos reservados.</p>
-    </footer>
+<script>
+// === DADOS COMPLETOS ===
+const DATA = {
+    domi: {
+        name: "DOMI", height: 1.78, weight: 86, target: 79, 
+        calories: 2200, water: 3500, protein: 150,
+        meals: [
+            {time: "06:30", normal: "3 ovos + 2 fatias pão integral + café", adj: "3 ovos + café (SEM pão)"},
+            {time: "11:00", normal: "Whey 30g + banana + castanhas 30g", adj: "Whey + castanhas (SEM banana)"},
+            {time: "12:30", normal: "150g proteína + 100g carb + salada", adj: "150g proteína + salada DOBRADA (SEM carb)"},
+            {time: "16:00", normal: "1 fatia pão + queijo + café", adj: "Café ou chá (PULAR este lanche)"},
+            {time: "19:30", normal: "180g salmão + legumes + azeite", adj: "180g frango/tilápia + legumes (SEM azeite)"}
+        ],
+        tips: ["Cuidado com doces no trabalho", "Jiu 2ª/4ª manhã (leve), 3ª/5ª noite (pesado)", "Evitar energético e maionese"],
+        tricks: ["Trocar pão por ovo no café", "Usar balança para o lanche das 16h", "Beber água antes das refeições"]
+    },
+    nath: {
+        name: "NATH", height: 1.60, weight: 56, target: 50,
+        calories: 1550, water: 2500, protein: 100,
+        meals: [
+            {time: "06:50", normal: "2 ovos + aveia + fruta", adj: "2 ovos + aveia (SEM fruta)"},
+            {time: "09:50", normal: "Iogurte natural + castanhas 20g", adj: "Manter iogurte e castanhas"},
+            {time: "13:00", normal: "120g proteína + 80g carb + salada", adj: "120g proteína + salada (SEM carb)"},
+            {time: "17:00", normal: "Banana + whey", adj: "Apenas whey com água"},
+            {time: "20:30", normal: "Sopa de legumes com frango", adj: "Sopa apenas com frango (SEM macarrão/batata)"}
+        ],
+        tips: ["Preparar lanche na noite anterior", "Controlar vontade de macarrão", "Treino musculação nos dias livres"],
+        tricks: ["Macarrão de abobrinha como substituto", "Frutas congeladas para sobremesa", "Chá verde para saciedade"]
+    }
+};
 
-    <script src="script.js"></script>
+// === ESTADO DO SISTEMA ===
+let currentUser = 'domi';
+let storage = {
+    domi: {history: [], water: 0, adjDate: null, adjAmount: 0},
+    nath: {history: [], water: 0, adjDate: null, adjAmount: 0}
+};
+
+// Carregar do localStorage
+try {
+    const saved = localStorage.getItem('superAgenteV2');
+    if (saved) storage = JSON.parse(saved);
+} catch(e) {}
+
+function saveData() {
+    try { localStorage.setItem('superAgenteV2', JSON.stringify(storage)); } catch(e) {}
+}
+
+function getToday() {
+    return new Date().toISOString().slice(0, 10);
+}
+
+function getTomorrow() {
+    const t = new Date();
+    t.setDate(t.getDate() + 1);
+    return t.toISOString().slice(0, 10);
+}
+
+// === RENDERIZAÇÃO ===
+function render() {
+    const u = DATA[currentUser];
+    const s = storage[currentUser];
+    const today = getToday();
+    
+    // Verifica se ajuste está ativo para hoje
+    let isAdjMode = (s.adjDate === today);
+    let todayCal = u.calories - (isAdjMode ? s.adjAmount : 0);
+    
+    // Calcula calorias já consumidas hoje
+    let consumed = 0;
+    s.history.forEach(h => {
+        if(h.date === today && h.cal) consumed += parseInt(h.cal);
+    });
+    let remaining = todayCal - consumed;
+    
+    let html = '';
+    
+    // Banner de modo ajuste
+    if (isAdjMode) {
+        html += `<div class="alert-box">
+            ⚠️ <strong>MODO AJUSTE ATIVADO!</strong><br>
+            Compensando excesso de ontem. Meta reduzida em ${s.adjAmount} kcal.<br>
+            <small>Foque nas refeições em laranja abaixo!</small>
+        </div>`;
+    }
+    
+    // Perfil
+    html += `<div class="card">
+        <h2>👤 Perfil ${u.name}</h2>
+        <div class="profile-grid">
+            <div class="stat-box">
+                <strong>${u.weight}kg → ${u.target}kg</strong>
+                <small>Falta ${u.weight - u.target}kg</small>
+            </div>
+            <div class="stat-box" style="${isAdjMode ? 'background:#fff3e0' : ''}">
+                <strong>${consumed}/${todayCal}</strong>
+                <small>${remaining > 0 ? 'Restam ' + remaining : 'Excedeu ' + Math.abs(remaining)} kcal</small>
+            </div>
+            <div class="stat-box">
+                <strong>${s.water}ml</strong>
+                <small>Meta: ${u.water/1000}L</small>
+            </div>
+        </div>
+    </div>`;
+    
+    // Plano Alimentar
+    html += `<div class="card">
+        <h2>🍽️ Plano ${isAdjMode ? 'Ajustado' : 'Diário'}</h2>`;
+    u.meals.forEach(m => {
+        html += `<div class="meal-item ${isAdjMode ? 'adjusted' : ''}">
+            <div class="meal-time">🕐 ${m.time}</div>
+            <div class="meal-desc">${isAdjMode ? m.adj : m.normal}</div>
+        </div>`;
+    });
+    html += `</div>`;
+    
+    // Registrar Refeição
+    html += `<div class="card">
+        <h2>📝 Registrar Refeição</h2>
+        <div style="display:grid; gap:10px;">
+            <input type="text" id="food-desc" placeholder="O que comeu? (ex: 150g arroz, frango grelhado)">
+            <input type="number" id="food-cal" placeholder="Calorias estimadas (aproximado)">
+            <button onclick="addMeal()">💾 Salvar Refeição</button>
+        </div>
+    </div>`;
+    
+    // Protocolo de Ajuste (só aparece se não estiver em modo ajuste)
+    if (!isAdjMode) {
+        html += `<div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <h2 style="color: white; border-color: rgba(255,255,255,0.3);">⚖️ Passou da conta ontem?</h2>
+            <p style="margin-bottom: 15px;">Se exagerou ontem, ative o protocolo para ajustar automaticamente as metas de <strong>amanhã</strong>.</p>
+            <button class="warning" onclick="activateAdjustment()" style="width: 100%; font-size: 1.1em;">
+                Ativar Protocolo de Ajuste para Amanhã
+            </button>
+        </div>`;
+    } else {
+        html += `<div class="card">
+            <h2>✅ Check-list do Dia</h2>
+            <label style="display: block; margin: 8px 0;"><input type="checkbox"> Beber 500ml de água EXTRA</label>
+            <label style="display: block; margin: 8px 0;"><input type="checkbox"> 20 min de caminhada leve</label>
+            <label style="display: block; margin: 8px 0;"><input type="checkbox"> Preferir chá verde/hibisco</label>
+        </div>`;
+    }
+    
+    // Água
+    let waterPct = Math.min(100, (s.water / u.water) * 100);
+    html += `<div class="card">
+        <h2>💧 Controle de Água</h2>
+        <div class="water-container">
+            <div class="water-display">${(s.water/1000).toFixed(1)}L</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: ${waterPct}%">${Math.round(waterPct)}%</div>
+            </div>
+        </div>
+        <div style="margin-top: 10px;">
+            <button class="secondary" onclick="addWater(250)">+250ml</button>
+            <button class="secondary" onclick="addWater(500)">+500ml</button>
+            <button class="danger" onclick="resetWater()" style="float: right;">Zerar</button>
+        </div>
+    </div>`;
+    
+    // Histórico de hoje
+    let todayHist = s.history.filter(h => h.date === today).reverse();
+    html += `<div class="card">
+        <h2>🕒 Histórico de Hoje (${todayHist.length} itens)</h2>`;
+    if (todayHist.length === 0) {
+        html += `<p style="color: #999; text-align: center;">Nenhuma refeição registrada hoje.</p>`;
+    } else {
+        todayHist.forEach(h => {
+            html += `<div class="history-item">
+                <span><strong>${h.time}</strong> - ${h.desc}</span>
+                ${h.cal ? `<span class="badge">${h.cal} kcal</span>` : ''}
+            </div>`;
+        });
+    }
+    html += `</div>`;
+    
+    // Dicas e Truques
+    html += `<div class="card">
+        <h2>💡 Dicas Estratégicas</h2>
+        ${u.tips.map(t => `<div class="info-box">💪 ${t}</div>`).join('')}
+        <h3 style="margin-top:15px; color:#666; font-size:1em;">Substituições Inteligentes:</h3>
+        ${u.tricks.map(t => `<div class="success-box">🎯 ${t}</div>`).join('')}
+    </div>`;
+    
+    document.getElementById('app-content').innerHTML = html;
+}
+
+// === AÇÕES ===
+function switchTab(user) {
+    currentUser = user;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + user).classList.add('active');
+    render();
+}
+
+function addMeal() {
+    const desc = document.getElementById('food-desc').value;
+    const cal = document.getElementById('food-cal').value;
+    if (!desc) return alert('Descreva o que comeu!');
+    
+    const now = new Date();
+    storage[currentUser].history.push({
+        date: getToday(),
+        time: now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'}),
+        desc: desc,
+        cal: cal || 0
+    });
+    saveData();
+    render();
+}
+
+function addWater(amount) {
+    storage[currentUser].water += amount;
+    saveData();
+    render();
+}
+
+function resetWater() {
+    if (confirm('Zerar contagem de água de hoje?')) {
+        storage[currentUser].water = 0;
+        saveData();
+        render();
+    }
+}
+
+function activateAdjustment() {
+    const choice = prompt(
+        "Qual foi o nível do excesso de ONTEM?\n\n" +
+        "1️⃣ Pequeno (lanche extra/sobremesa) → -300 kcal amanhã\n" +
+        "2️⃣ Médio (pizza/hambúrguer) → -500 kcal amanhã\n" +
+        "3️⃣ Grande (festa/rodízio) → -800 kcal amanhã\n\n" +
+        "Digite 1, 2 ou 3:"
+    );
+    
+    let amount = 0;
+    if (choice === '1') amount = 300;
+    else if (choice === '2') amount = 500;
+    else if (choice === '3') amount = 800;
+    else return;
+    
+    storage[currentUser].adjDate = getTomorrow();
+    storage[currentUser].adjAmount = amount;
+    saveData();
+    
+    alert(`✅ Protocolo ativado!\n\nAmanhã (${storage[currentUser].adjDate}) sua meta será reduzida em ${amount} kcal automaticamente.\n\nFoque nas refeições sugeridas em laranja!`);
+}
+
+// Iniciar
+window.onload = render;
+</script>
+
 </body>
 </html>
